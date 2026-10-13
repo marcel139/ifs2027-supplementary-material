@@ -1,0 +1,49 @@
+// Tests for RoboSim component 'Machine_2' with length up to 4
+// Format: t0, ..., tn, fevent
+// <t0,...,tn> is a valid trace followed by a 'fevent' that is forbidden
+cspm robosim Machine_2_timed_traces associated to Machine_2 {
+t0: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.false, tock
+t1: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t2: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t3: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t4: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t5: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.true, tock
+t6: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t7: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t8: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t9: Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t10: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.false, tock
+t11: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t12: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t13: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t14: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t15: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, tock
+t16: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t17: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t18: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t19: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, tock
+t20: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t21: Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t22: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.false, tock
+t23: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t24: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t25: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t26: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t27: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.true, tock
+t28: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t29: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t30: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t31: Machine_2::registerRead.Machine_2::i_com_var.false, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t32: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.false, tock
+t33: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t34: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock
+t35: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t36: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t37: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, tock
+t38: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t39: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t40: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+t41: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, tock
+t42: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, Machine_2::registerWrite.Machine_2::o_output_mch_2.false
+t43: Machine_2::registerRead.Machine_2::i_com_var.true, Machine_2::registerRead.Machine_2::i_input_mch_2.true, Machine_2::registerWrite.Machine_2::o_output_mch_2.false, tock, Machine_2::registerWrite.Machine_2::o_output_mch_2.true
+}

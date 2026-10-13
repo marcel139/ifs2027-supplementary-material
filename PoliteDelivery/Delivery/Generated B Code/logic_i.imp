@@ -1,0 +1,378 @@
+IMPLEMENTATION
+	logic_i
+
+REFINES
+ 	logic
+DEFINITIONS
+
+  SCOPE == lchip_interface.ms_tick < 10;
+
+  // the following preferences are required to animate without errors in ProB
+  SET_PREF_ALLOW_LOCAL_OPERATION_CALLS == TRUE;
+  SET_PREF_ALLOW_NEW_OPERATIONS_IN_REFINEMENT == TRUE;
+  SET_PREF_ALLOW_OUTPUT_READING == TRUE;
+  SET_PREF_STORE_DETAILED_TRANSITION_INFOS == TRUE;
+  SET_PREF_PROFILING_INFO == TRUE;
+  MAX_OPERATIONS_print_global_inputs == 0; // not working yet
+  MAX_OPERATIONS_read_global_input == 0;
+  MAX_OPERATIONS_write_global_output == 0;
+  // to enable the other input pins
+  SET_PREF_MAX_INITIALISATIONS == 8;
+  MAX_OPERATIONS_read_inputs == 8;
+PROPERTIES
+IO_ON = 1 &
+IO_OFF = 0 &
+INIT = 0 &
+EXEC_1 = 1 &
+EXEC_2 = 2 &
+EXEC_3 = 3 &
+EXEC_4 = 4 &
+FINAL = 5 &
+st_READ_INPUTS = 0 &
+st_STATE_MACHINE = 1 &
+st_WRITE_OUTPUTS = 2 &
+st_TIME = 3 &
+cycle_unit = 1 &
+Delivery_cycleDef = 1 &
+STRUE = 2 &
+SFALSE = 1 &
+MAX_UINT32 = 4294967295 &
+MAX_UINT16 = 65535 &
+MAX_UINT8 = 255
+SEES
+ 	g_types,
+ 	g_operators  /*@file "prob_specific/g_operators.mch" */,
+ 	io_constants,
+ 	lchip_interface    /*@file "prob_specific/lchip_interface.mch" */,
+ 	user_ctx,
+ 	inputs /*@file "prob_specific/inputs.mch" */
+
+CONCRETE_VARIABLES
+board_0_O1,
+board_0_O2,
+first_time,
+SM_Delivery_state,
+cycle_timer,
+tock_timer,
+cycle_state,
+move_count,
+tock_made,
+Services_o_drop,
+Delivery_i_arrived
+
+INVARIANT
+board_0_O1 : uint8_t &
+board_0_O2 : uint8_t &
+first_time: BOOL &
+SM_Delivery_state : uint32_t &
+SM_Delivery_state : {INIT, FINAL, EXEC_1} &
+cycle_timer: uint32_t &
+tock_timer: uint32_t &
+cycle_state: uint8_t &
+cycle_state: {st_READ_INPUTS, st_STATE_MACHINE, st_WRITE_OUTPUTS, st_TIME} &
+move_count : uint32_t &
+tock_made : BOOL &
+Services_o_drop : uint8_t &
+Delivery_i_arrived : uint8_t
+
+INITIALISATION
+
+board_0_O1 := IO_OFF;
+board_0_O2 := IO_OFF;
+first_time:= TRUE;
+cycle_timer := 0;
+tock_timer := 0;
+cycle_state := st_READ_INPUTS;
+move_count := 0;
+tock_made := FALSE;
+SM_Delivery_state := INIT;
+Services_o_drop := IO_OFF;
+Delivery_i_arrived := IO_OFF
+
+LOCAL_OPERATIONS
+
+execute_model_cycle =
+PRE cycle_state = st_READ_INPUTS
+THEN
+cycle_state :: uint8_t ||
+move_count :: uint32_t ||
+SM_Delivery_state :: uint32_t ||
+Delivery_i_arrived :: uint8_t ||
+Services_o_drop :: uint8_t
+END;
+
+execute_state_machines =
+PRE cycle_state = st_STATE_MACHINE
+THEN
+cycle_state :: uint8_t ||
+move_count :: uint32_t ||
+SM_Delivery_state :: uint32_t ||
+Services_o_drop :: uint8_t
+END;
+
+SM_Delivery =
+PRE cycle_state = st_STATE_MACHINE
+THEN
+move_count :: uint32_t ||
+SM_Delivery_state :: uint32_t ||
+Services_o_drop :: uint8_t
+END;
+
+read_model_inputs =
+PRE cycle_state = st_READ_INPUTS
+THEN
+    cycle_state :: uint8_t ||
+    Delivery_i_arrived :: uint8_t
+END;
+
+read_Delivery_i_arrived =
+PRE cycle_state = st_READ_INPUTS
+THEN
+    Delivery_i_arrived :: uint8_t
+END;
+ 
+write_model_outputs =
+PRE cycle_state = st_WRITE_OUTPUTS
+THEN
+board_0_O1      :: uint8_t ||
+board_0_O2      :: uint8_t ||
+cycle_state     :: uint8_t
+END;
+
+
+write_Services_o_drop =
+PRE cycle_state = st_WRITE_OUTPUTS
+THEN
+    board_0_O1 :: uint8_t
+END;
+
+
+
+
+elapsed <-- since(timer) =
+PRE timer:uint32_t & elapsed:uint32_t
+THEN
+	elapsed::uint32_t
+END;
+
+result <-- land(pp,qq) =
+PRE pp:BOOL & qq:BOOL & result:BOOL
+THEN
+    result::BOOL
+END;
+
+result <-- lor(pp,qq) = 
+PRE pp:BOOL & qq:BOOL & result:BOOL
+THEN
+ 	result::BOOL
+END;
+
+result <-- lnot(pp) = 
+PRE pp:BOOL & result:BOOL
+THEN
+ 	result::BOOL
+END;
+
+tock =
+BEGIN
+ 	skip
+END;
+
+exec =
+BEGIN
+ 	skip
+END;
+
+reset_outputs =
+BEGIN
+board_0_O1 :: uint8_t ||
+move_count :: uint32_t ||
+Services_o_drop :: uint8_t
+END
+
+OPERATIONS
+
+user_logic = 
+BEGIN
+    IF first_time = TRUE THEN 
+       cycle_timer <-- get_ms_tick;
+       tock_timer <-- get_ms_tick;
+       reset_outputs;
+       cycle_state:= st_READ_INPUTS;
+       execute_model_cycle;
+       first_time := FALSE
+
+    ELSE
+ 	    VAR time_elapsed, cycle_duration,
+ 	    time_elapsed_since_last_tock    IN
+
+            time_elapsed:(time_elapsed:uint32_t);
+ 	        cycle_duration:(cycle_duration:uint32_t);
+ 	        
+ 	        time_elapsed_since_last_tock:(time_elapsed_since_last_tock:uint32_t);
+ 	        
+ 		    time_elapsed <-- since(cycle_timer);
+ 		    cycle_duration := mul_uint32(Delivery_cycleDef,cycle_unit);
+ 		    
+ 		    time_elapsed_since_last_tock <-- since(tock_timer);
+ 		    
+ 		    IF (cycle_unit <= time_elapsed_since_last_tock ) THEN
+ 		        IF (tock_made = FALSE) THEN
+ 		            tock;
+ 		    	    tock_made := TRUE
+ 		    	ELSE
+ 		            tock_timer <-- get_ms_tick;
+ 		    	    tock_made := FALSE
+ 		    	END
+ 		    END;
+ 		    
+ 		    IF (cycle_duration <= time_elapsed) THEN
+ 		       IF (tock_made = FALSE) THEN
+ 		           exec;
+ 		           cycle_state:= st_READ_INPUTS;
+ 		           cycle_timer <-- get_ms_tick;
+ 		           reset_outputs;
+ 		           execute_model_cycle
+ 		       END
+ 		    END
+ 		END
+ 	END
+END;
+
+SM_Delivery =
+BEGIN
+IF SM_Delivery_state = INIT THEN
+VAR guard_1
+IN
+guard_1:(guard_1:BOOL);
+guard_1 := bool(Delivery_i_arrived = IO_ON);
+IF (guard_1 = TRUE) THEN
+Services_o_drop := IO_ON;
+move_count := add_uint32(move_count, 1);
+SM_Delivery_state:= FINAL
+ELSE
+SM_Delivery_state:= EXEC_1
+END
+END
+ELSIF SM_Delivery_state = EXEC_1 THEN
+VAR guard_1, guard_2
+IN
+guard_1:(guard_1:BOOL);
+guard_2:(guard_2:BOOL);
+guard_1 := bool(Delivery_i_arrived = IO_OFF);
+guard_2 := bool(Delivery_i_arrived = IO_ON);
+IF (guard_1 = TRUE) THEN
+SM_Delivery_state:= EXEC_1
+ELSIF (guard_2 = TRUE) THEN
+Services_o_drop := IO_ON;
+move_count := add_uint32(move_count, 1);
+SM_Delivery_state:= FINAL
+END
+END
+END
+END;
+
+execute_model_cycle =
+BEGIN
+read_model_inputs;
+execute_state_machines;
+write_model_outputs
+END;
+
+execute_state_machines =
+BEGIN
+SM_Delivery;
+cycle_state := st_WRITE_OUTPUTS
+END;
+
+read_model_inputs =
+BEGIN
+	read_Delivery_i_arrived;
+    cycle_state := st_STATE_MACHINE
+END;
+
+read_Delivery_i_arrived =
+BEGIN
+    Delivery_i_arrived <-- get_board_0_I1
+END;
+ 
+write_model_outputs =
+BEGIN
+write_Services_o_drop;
+cycle_state := st_TIME
+END;
+
+
+write_Services_o_drop =
+BEGIN
+    board_0_O1 := Services_o_drop
+END;
+
+
+
+elapsed <-- since(timer) =
+BEGIN
+     elapsed:(elapsed:uint32_t);
+     VAR local_time IN 
+         local_time:(local_time:uint32_t);
+         local_time <-- get_ms_tick;
+        elapsed := sub_uint32(local_time, timer)
+     END
+END;
+
+result <-- land(pp,qq) =
+BEGIN
+    result := FALSE;
+    IF (pp = TRUE) THEN
+        IF (qq = TRUE) THEN
+            result := TRUE
+        END
+    END
+END;
+
+result <-- lor(pp,qq) =
+BEGIN
+    result := TRUE;
+    IF (pp = FALSE) THEN 
+        IF (qq = FALSE) THEN
+            result := FALSE
+        END
+    END
+END;
+
+result <-- lnot(pp) =
+BEGIN
+result := FALSE;
+    IF (pp = FALSE) THEN
+        result := TRUE
+    END
+END;
+
+tock =
+BEGIN
+    skip
+END;
+
+exec =
+BEGIN
+    skip
+END;
+
+reset_outputs =
+BEGIN
+board_0_O1 := IO_OFF;
+move_count := 0;
+Services_o_drop := IO_OFF
+END;
+
+po <-- get_board_0_O1 =
+BEGIN
+   po := board_0_O1
+END;
+
+po <-- get_board_0_O2 =
+BEGIN
+	po := board_0_O2
+END
+
+END

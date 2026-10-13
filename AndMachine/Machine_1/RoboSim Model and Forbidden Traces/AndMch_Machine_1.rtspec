@@ -1,0 +1,28 @@
+// Tests for RoboSim component 'Machine_1' with length up to 4
+// Format: t0, ..., tn, fevent
+// <t0,...,tn> is a valid trace followed by a 'fevent' that is forbidden
+cspm robosim Machine_1_timed_traces associated to Machine_1 {
+t0: Machine_1::registerRead.Machine_1::i_input_mch_1.false, tock
+t1: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.true
+t2: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_com_var
+t3: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock
+t4: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false
+t5: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.true
+t6: Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_com_var
+t7: Machine_1::registerRead.Machine_1::i_input_mch_1.true, tock
+t8: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.true
+t9: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_com_var
+t10: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false
+t11: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.true
+t12: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, Machine_1::registerWrite.Machine_1::o_com_var
+t13: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, tock
+t14: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerWrite.Machine_1::o_output_mch_1.false
+t15: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerWrite.Machine_1::o_output_mch_1.true
+t16: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerWrite.Machine_1::o_com_var
+t17: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.false, tock
+t18: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_output_mch_1.false
+t19: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.false, Machine_1::registerWrite.Machine_1::o_com_var
+t20: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.true, tock
+t21: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false
+t22: Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_output_mch_1.false, tock, Machine_1::registerRead.Machine_1::i_input_mch_1.true, Machine_1::registerWrite.Machine_1::o_com_var
+}

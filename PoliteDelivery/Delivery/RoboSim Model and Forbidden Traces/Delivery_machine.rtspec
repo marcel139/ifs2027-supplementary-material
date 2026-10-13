@@ -1,0 +1,23 @@
+// Tests for RoboSim component 'Delivery' with length up to 4
+// Format: t0, ..., tn, fevent
+// <t0,...,tn> is a valid trace followed by a 'fevent' that is forbidden
+cspm robosim Delivery_timed_traces associated to Delivery {
+t0: Delivery::registerRead.Delivery::i_arrived.false, Delivery::registerWrite.Delivery::o_drop
+t1: Delivery::registerRead.Delivery::i_arrived.false, tock, tock
+t2: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerWrite.Delivery::o_drop
+t3: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerRead.Delivery::i_arrived.false, Delivery::registerWrite.Delivery::o_drop
+t4: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerRead.Delivery::i_arrived.false, tock, tock
+t5: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerWrite.Delivery::o_drop
+t6: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerRead.Delivery::i_arrived.true, tock
+t7: Delivery::registerRead.Delivery::i_arrived.false, tock, Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::registerWrite.Delivery::o_drop
+t8: Delivery::registerRead.Delivery::i_arrived.true, tock
+t9: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::registerWrite.Delivery::o_drop
+t10: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, tock, tock
+t11: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, tock, Delivery::registerWrite.Delivery::o_drop
+t12: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, tock, Delivery::registerRead.Delivery::i_arrived.false, Delivery::registerWrite.Delivery::o_drop
+t13: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, tock, Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop
+t14: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::terminate, tock
+t15: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::terminate, Delivery::registerWrite.Delivery::o_drop
+t16: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::terminate, ✓, tock
+t17: Delivery::registerRead.Delivery::i_arrived.true, Delivery::registerWrite.Delivery::o_drop, Delivery::terminate, ✓, Delivery::registerWrite.Delivery::o_drop
+}
